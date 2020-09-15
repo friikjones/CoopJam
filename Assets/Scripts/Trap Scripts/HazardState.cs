@@ -1,4 +1,4 @@
-public enum TrapState {
+public enum HazardState {
     Idle,
     Warning,
     Active,

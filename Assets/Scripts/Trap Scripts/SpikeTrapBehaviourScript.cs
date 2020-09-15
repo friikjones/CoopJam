@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpikeTrap : MonoBehaviour {
+public class SpikeTrapBehaviourScript : MonoBehaviour {
 
     //State change vars
-    public TrapState trapState;
+    public HazardState trapState;
     private int tick;
     public float idleTime;
     public float warningTime;
@@ -19,7 +19,7 @@ public class SpikeTrap : MonoBehaviour {
     public float trapHeight;
 
     //Visual Queue Vars
-    public MeshRenderer meshRenderer;
+    private MeshRenderer meshRenderer;
     public GameObject warningObject;
     public Material activeMaterial;
     public Material cooldownMaterial;
@@ -39,30 +39,30 @@ public class SpikeTrap : MonoBehaviour {
 
     void StateHandler() {
         switch (trapState) {
-            case TrapState.Idle:
+            case HazardState.Idle:
                 if (tick > idleTime * 50) {
-                    trapState = TrapState.Warning;
+                    trapState = HazardState.Warning;
                     tick = 0;
                     WarningTransition();
                 }
                 break;
-            case TrapState.Warning:
+            case HazardState.Warning:
                 if (tick > warningTime * 50) {
-                    trapState = TrapState.Active;
+                    trapState = HazardState.Active;
                     tick = 0;
                     ActiveTransition();
                 }
                 break;
-            case TrapState.Active:
+            case HazardState.Active:
                 if (tick > activeTime * 50) {
-                    trapState = TrapState.Cooldown;
+                    trapState = HazardState.Cooldown;
                     tick = 0;
                     CooldownTransition();
                 }
                 break;
-            case TrapState.Cooldown:
+            case HazardState.Cooldown:
                 if (tick > cooldownTimer * 50) {
-                    trapState = TrapState.Idle;
+                    trapState = HazardState.Idle;
                     tick = 0;
                     IdleTransition();
                 }
